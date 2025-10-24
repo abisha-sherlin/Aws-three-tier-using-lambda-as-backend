@@ -1,40 +1,50 @@
-const backendUrl = "http://backend-app-lb-2127459385.us-east-1.elb.amazonaws.com/api/items"; // Replace with your backend endpoint
+// Replace with your backend API Gateway endpoint or ELB URL
+const backendUrl = "https://y4now77067.execute-api.us-east-1.amazonaws.com/api/items";
+
+// Select DOM elements
+const itemsList = document.getElementById("itemsList");
+const addBtn = document.getElementById("addBtn");
+const fetchBtn = document.getElementById("fetchBtn");
+const itemInput = document.getElementById("itemName");
 
 // Fetch items from backend
 async function fetchItems() {
-  const list = document.getElementById("itemsList");
-  list.innerHTML = "Loading...";
+  itemsList.innerHTML = "<li>Loading...</li>";
 
   try {
-    const response = await fetch(backendUrl);
-    if (!response.ok) throw new Error("Failed to fetch items");
+    const response = await fetch(backendUrl, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+
+    if (!response.ok) throw new Error(`Error: ${response.statusText}`);
 
     const data = await response.json();
-    list.innerHTML = "";
+    itemsList.innerHTML = "";
 
-    if (data.length === 0) {
-      list.innerHTML = "<li>No items found</li>";
+    if (!data.length) {
+      itemsList.innerHTML = "<li>No items found</li>";
       return;
     }
 
     data.forEach(item => {
       const li = document.createElement("li");
       li.textContent = `${item.id}: ${item.name}`;
-      list.appendChild(li);
+      itemsList.appendChild(li);
     });
+
   } catch (err) {
     console.error(err);
-    list.innerHTML = "<li>Error loading items.</li>";
+    itemsList.innerHTML = "<li>Error loading items.</li>";
   }
 }
 
 // Add new item to backend
 async function addItem() {
-  const itemName = document.getElementById("itemName").value.trim();
-  if (!itemName) {
-    alert("Please enter an item name.");
-    return;
-  }
+  const name = itemInput.value.trim();
+  if (!name) return alert("Please enter an item name.");
 
   try {
     const response = await fetch(backendUrl, {
@@ -42,15 +52,23 @@ async function addItem() {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ name: itemName })
+      body: JSON.stringify({ name })
     });
 
-    if (!response.ok) throw new Error("Failed to add item");
+    if (!response.ok) throw new Error(`Error: ${response.statusText}`);
 
-    document.getElementById("itemName").value = "";
-    fetchItems(); // refresh the list
+    itemInput.value = "";
+    fetchItems(); // refresh list
+
   } catch (err) {
     console.error(err);
     alert("Error adding item.");
   }
 }
+
+// Event listeners
+addBtn.addEventListener("click", addItem);
+fetchBtn.addEventListener("click", fetchItems);
+
+// Optional: fetch items on page load
+window.addEventListener("DOMContentLoaded", fetchItems);

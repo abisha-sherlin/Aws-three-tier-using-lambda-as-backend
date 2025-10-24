@@ -1,57 +1,58 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>3-Tier App Demo</title>
-    <style>
-      body { 
-        font-family: Arial, sans-serif; 
-        text-align: center; 
-        margin-top: 40px;
-        background-color: #f9fafb;
-      }
-      h1 { color: #333; }
-      input, button {
-        padding: 10px;
-        margin: 8px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-      }
-      button {
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        cursor: pointer;
-      }
-      button:hover { background-color: #0056b3; }
-      ul {
-        list-style-type: none;
-        padding: 0;
-        margin-top: 20px;
-      }
-      li {
-        background: #eef2ff;
-        margin: 6px auto;
-        padding: 10px;
-        width: 300px;
-        border-radius: 5px;
-        text-align: left;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Items Management</h1>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>3-Tier App Demo</title>
+  <style>
+    body { 
+      font-family: Arial, sans-serif; 
+      text-align: center; 
+      margin-top: 40px;
+      background-color: #f9fafb;
+    }
+    h1 { color: #333; }
+    input, button {
+      padding: 10px;
+      margin: 8px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover { background-color: #0056b3; }
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin-top: 20px;
+    }
+    li {
+      background: #eef2ff;
+      margin: 6px auto;
+      padding: 10px;
+      width: 300px;
+      border-radius: 5px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <h1>Items Management</h1>
 
-    <div>
-      <input type="text" id="itemName" placeholder="Enter item name" />
-      <button onclick="addItem()">Add Item</button>
-    </div>
+  <div>
+    <input type="text" id="itemName" placeholder="Enter item name" />
+    <button id="addBtn">Add Item</button>
+  </div>
 
-    <div>
-      <button onclick="fetchItems()">Fetch Items</button>
-    </div>
+  <div>
+    <button id="fetchBtn">Fetch Items</button>
+  </div>
 
-    <ul id="itemsList"></ul>
+  <ul id="itemsList"></ul>
 
-    <script src="script.js"></script>
-  </body>
+  <script src="script.js"></script>
+</body>
 </html>

@@ -1,0 +1,5 @@
+flask==2.3.3
+boto3
+mysql-connector-python
+serverless-wsgi
+
